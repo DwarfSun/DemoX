@@ -1,0 +1,6 @@
+GET http://localhost:5058/status/ HTTP/3.0
+Content-Type: application/json
+
+{}
+
+###

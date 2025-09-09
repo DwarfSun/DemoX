@@ -1,9 +1,7 @@
-namespace Api.Services
+namespace Backend.Services
 {
     public interface ISqlServerService
     {
-        // Example method to query SQL Server
-        Task<string> GetDataAsync();
         public Task<List<List<dynamic>>> SelectTopReputableByLocation(
             int top,
             string startsWith,

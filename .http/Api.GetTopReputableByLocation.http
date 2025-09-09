@@ -1,4 +1,4 @@
-GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
 content-type: application/json
 
 {
@@ -7,7 +7,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
 content-type: application/json
 
 {
@@ -16,7 +16,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
 content-type: application/json
 
 {
@@ -25,7 +25,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
 content-type: application/json
 
 {
@@ -33,7 +33,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
 content-type: application/json
 
 {}

@@ -1,4 +1,5 @@
-using Api.Services;
+using Backend;
+using Backend.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ public class GetTopVotedPosts(ILoggerFactory loggerFactory, ISqlServerService sq
         try
         {
             var results = await sqlServerService.SelectTopVotedPosts(
-                top: top ?? Globals.DefaultNumResults);
+                top: top ?? Constants.DefaultNumResults);
             response.StatusCode = System.Net.HttpStatusCode.OK;
             await response.WriteAsJsonAsync(results);
         }

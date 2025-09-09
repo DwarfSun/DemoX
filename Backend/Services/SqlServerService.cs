@@ -3,21 +3,11 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
-namespace Api.Services
+namespace Backend.Services
 {
     public class SqlServerService(string connectionString) : ISqlServerService
     {
         private readonly string _connectionString = connectionString;
-
-        public async Task<string> GetDataAsync()
-        {
-            // Example: fetch a single value from SQL Server
-            using var conn = new SqlConnection(_connectionString);
-            await conn.OpenAsync();
-            using var cmd = new SqlCommand("SELECT TOP 1 name FROM sys.databases", conn);
-            var result = await cmd.ExecuteScalarAsync();
-            return result?.ToString() ?? string.Empty;
-        }
 
         public async Task<List<List<dynamic>>> SelectTopReputableByLocation(
             int top,
@@ -81,7 +71,8 @@ namespace Api.Services
 
         private async Task<string> GetQueryText(string queryname)
         {
-            string filePath = $"{queryname}.sql";
+            string baseDir = AppContext.BaseDirectory;
+            string filePath = Path.Combine(baseDir, $"{queryname}.sql");
             if (!File.Exists(filePath)) throw new FileNotFoundException(
                 message: $"{nameof(FileNotFoundException)}:{filePath}",
                 fileName: filePath);

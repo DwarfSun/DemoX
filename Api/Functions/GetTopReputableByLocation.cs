@@ -1,5 +1,6 @@
 using System.Diagnostics;
-using Api.Services;
+using Backend;
+using Backend.Services;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,7 @@ public class GetTopReputableByLocation(ILoggerFactory loggerFactory, ISqlServerS
         {
 
             var results = await sqlServerService.SelectTopReputableByLocation(
-                top: top ?? Globals.DefaultNumResults,
+                top: top ?? Constants.DefaultNumResults,
                 startsWith: startsWith ?? "%",
                 contains: contains ?? "%",
                 endsWith: endsWith ?? "%");

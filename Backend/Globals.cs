@@ -1,6 +1,5 @@
-namespace Api;
-
-public static class Globals
+﻿namespace Backend;
+public class Constants
 {
     public const int DefaultNumResults = 100;
 }
