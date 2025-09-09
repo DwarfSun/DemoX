@@ -1,0 +1,78 @@
+@page "/GetTopVotedPosts"
+@using System.Text
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject HttpClient Http
+
+<h3>Top Voted Posts</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+            <input @bind="top" type="number" min="1" class="form-control" id="inputTop" placeholder="">
+            <label for="inputTop">Number of results</label>
+            </div>
+            <button @onclick="FetchResults" type="button" class="btn btn-outline-primary">Fetch</button>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Post ID</th>
+            <th>UpVotes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in data)
+        {
+            <tr>
+                @foreach(var field in row)
+                {
+                    <td>
+                        @field.ToString()
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private int? top = null;
+    private List<List<dynamic>> data = new();
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchResults();
+    }
+
+    protected async Task FetchResults()
+    {
+        try
+        {
+            var parameters = new StringContent(
+                JsonSerializer.Serialize(new
+                { 
+                    top = top
+                }),
+                Encoding.UTF8,
+                "application/json");
+            var response = await Http.PostAsync("/api/GetTopVotedPosts", parameters);
+            if (response.IsSuccessStatusCode)
+            {
+                data = await response.Content.ReadFromJsonAsync<List<List<dynamic>>>() ?? new();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}

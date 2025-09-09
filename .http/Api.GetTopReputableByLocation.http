@@ -1,0 +1,41 @@
+GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+content-type: application/json
+
+{
+    "top":5,
+    "contains":"Western Cape"
+}
+
+###
+GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+content-type: application/json
+
+{
+    "top":10,
+    "startsWith":"Cape Town"
+}
+
+###
+GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+content-type: application/json
+
+{
+    "top":15,
+    "endsWith":"South Africa"
+}
+
+###
+GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+content-type: application/json
+
+{
+    "contains":"Africa"
+}
+
+###
+GET http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+content-type: application/json
+
+{}
+
+###

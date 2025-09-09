@@ -1,0 +1,98 @@
+﻿@page "/GetTopReputableByLocation"
+@using System.Text
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject HttpClient Http
+
+<h3>Top Reputable By Location</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+            <input @bind="top" type="number" min=1 class="form-control" id="inputTop" placeholder="">
+            <label for="inputTop">Number of results</label>
+            </div>
+            <button @onclick="FetchResults" type="button" class="btn btn-outline-primary">Fetch</button>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+            <input @bind="startsWith" type="text" class="form-control" id="inputStartsWith" placeholder="">
+            <label for="inputStartsWith">Starts With</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+            <input @bind="contains" type="text" class="form-control" id="inputContains" placeholder="">
+            <label for="inputContains">Contains</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+            <input @bind="endsWith" type="text" class="form-control" id="inputEndsWith" placeholder="">
+            <label for="floatingInput">Ends With</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Display Name</th>
+                    <th>Reputation</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in data)
+                {
+                    <tr>
+                        @foreach(var field in row)
+                        {
+                            <td>
+                                @field.ToString()
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private int? top = null;
+    private string? startsWith = null;
+    private string? contains = null;
+    private string? endsWith = null;
+    private List<List<dynamic>> data = new();
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchResults();
+    }
+
+    protected async Task FetchResults()
+    {
+        try
+        {
+            var parameters = new StringContent(
+                JsonSerializer.Serialize(new
+                { 
+                    top = top, 
+                    startsWith = string.IsNullOrEmpty(startsWith) ? null : startsWith, 
+                    contains = string.IsNullOrEmpty(contains)? null : contains, 
+                    endsWith = string.IsNullOrEmpty(endsWith)? null : endsWith
+                }),
+                Encoding.UTF8,
+                "application/json");
+            var response = await Http.PostAsync("/api/GetTopReputableByLocation", parameters);
+            if (response.IsSuccessStatusCode)
+            {
+                data = await response.Content.ReadFromJsonAsync<List<List<dynamic>>>() ?? new();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}

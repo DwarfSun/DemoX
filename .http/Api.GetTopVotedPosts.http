@@ -1,0 +1,22 @@
+GET http://localhost:7071/api/GetTopVotedPosts HTTP/3.0
+Content-Type: application/json
+
+{
+    "top":10
+}
+
+###
+GET http://localhost:7071/api/GetTopVotedPosts HTTP/3.0
+Content-Type: application/json
+
+{
+    "top":1
+}
+
+###
+GET http://localhost:7071/api/GetTopVotedPosts HTTP/3.0
+Content-Type: application/json
+
+{}
+
+###
