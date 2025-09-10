@@ -1,7 +1,9 @@
 using System;
+using System.Data;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using Shared.Models;
 
 namespace Shared.Services.Database
 {
@@ -43,6 +45,50 @@ namespace Shared.Services.Database
                 dynamic[] row = new dynamic[reader.FieldCount];
                 reader.GetValues(row);
                 results.Add([.. row]);
+            }
+            return results;
+        }
+public async Task<List<TopReputableByLocation>> SelectTopReputableByLocation2(
+            int top,
+            string startsWith,
+            string contains,
+            string endsWith)
+        {
+            var results = new List<TopReputableByLocation>();
+            using var conn = new SqlConnection(_connectionString);
+            await conn.OpenAsync();
+            using var cmd = new SqlCommand(
+                await GetQueryText(nameof(SelectTopReputableByLocation))
+                , conn);
+            cmd.Parameters.Add(
+                new SqlParameter($"@{nameof(top)}"
+                , System.Data.SqlDbType.Int)
+                { Value = top });
+            cmd.Parameters.Add(
+                new SqlParameter($"@{nameof(startsWith)}"
+                , System.Data.SqlDbType.NVarChar)
+                { Value = startsWith });
+            cmd.Parameters.Add(
+                new SqlParameter($"@{nameof(contains)}"
+                , System.Data.SqlDbType.NVarChar)
+                { Value = contains });
+            cmd.Parameters.Add(
+                new SqlParameter($"@{nameof(endsWith)}"
+                , System.Data.SqlDbType.NVarChar)
+                { Value = endsWith });
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+
+                TopReputableByLocation row = new()
+                {
+                    DisplayName = reader.GetString(0),
+                    Reputation = reader.GetInt32(1),
+                    Location = reader.GetString(2)
+                };
+                // System.Console.WriteLine($"{reader.GetString(0)},{reader.GetInt32(1)},{reader.GetString(2)}");
+                // System.Console.WriteLine($"{row.DisplayName},{row.Reputation},{row.Location}");
+                results.Add(row);
             }
             return results;
         }

@@ -9,6 +9,9 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
   </ItemGroup>
   <ItemGroup>
+	<ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>  
+  <ItemGroup>
     <Content Include="Queries\**\*.*">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,3 +1,5 @@
+using Shared.Models;
+
 namespace Shared.Services.Database
 {
     public interface ISqlServerService
@@ -7,7 +9,11 @@ namespace Shared.Services.Database
             string startsWith,
             string contains,
             string endsWith);
-
+        public Task<List<TopReputableByLocation>> SelectTopReputableByLocation2(
+            int top,
+            string startsWith,
+            string contains,
+            string endsWith);
         public Task<List<List<dynamic>>> SelectTopVotedPosts(
             int top);
     }

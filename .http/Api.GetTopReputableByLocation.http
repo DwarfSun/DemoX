@@ -1,4 +1,4 @@
-POST http://localhost:7071/api/GetTopReputableByLocation HTTP/3.0
+POST http://localhost:7071/api/GetTopReputableByLocation2 HTTP/3.0
 content-type: application/json
 
 {
