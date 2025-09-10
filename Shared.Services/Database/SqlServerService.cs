@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
-namespace Backend.Services
+namespace Shared.Services.Database
 {
     public class SqlServerService(string connectionString) : ISqlServerService
     {

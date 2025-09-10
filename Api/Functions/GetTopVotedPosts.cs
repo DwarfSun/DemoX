@@ -1,5 +1,5 @@
-using Backend;
-using Backend.Services;
+using Shared.Services;
+using Shared.Services.Database;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;

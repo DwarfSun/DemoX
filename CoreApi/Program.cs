@@ -11,8 +11,8 @@ builder.Services.AddOpenApi();
 var connectionString = builder.Configuration.GetConnectionString("Default")
     ?? builder.Configuration["SqlServer:ConnectionString"]
     ?? "Server=matt-laptop;Database=StackOverflow;User Id=matt;Password=SecurePassword123;TrustServerCertificate=True"; // fallback
-builder.Services.AddSingleton<Backend.Services.ISqlServerService>(sp =>
-    new Backend.Services.SqlServerService(connectionString));
+builder.Services.AddSingleton<Shared.Services.Database.ISqlServerService>(sp =>
+    new Shared.Services.Database.SqlServerService(connectionString));
 
 // Add CORS services
 builder.Services.AddCors(options =>

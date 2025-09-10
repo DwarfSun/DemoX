@@ -26,8 +26,8 @@
   <ItemGroup>
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
 	  <ProjectReference Include="..\Shared\Shared.csproj" />
-    <ProjectReference Include="..\Backend\Backend.csproj" />
-    <Content Include="..\Backend\Queries\**\*.*">
+    <ProjectReference Include="..\Shared.Services\Shared.Services.csproj" />
+    <Content Include="..\Shared.Services\Queries\**\*.*">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content> 

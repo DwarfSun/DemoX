@@ -1,4 +1,4 @@
-namespace Backend.Services
+namespace Shared.Services.Database
 {
     public interface ISqlServerService
     {

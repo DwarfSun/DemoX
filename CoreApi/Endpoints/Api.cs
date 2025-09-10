@@ -1,4 +1,4 @@
-using Backend.Services;
+using Shared.Services.Database;
 
 namespace CoreApi.Endpoints;
 
@@ -38,7 +38,7 @@ public static class Api
     private static async Task<IResult> GetTopVotedPosts(ISqlServerService sqlServerService, int? top = null)
     {
         var results = await sqlServerService.SelectTopVotedPosts(
-            top: top ?? Backend.Constants.DefaultNumResults);
+            top: top ?? Shared.Services.Constants.DefaultNumResults);
         return Results.Json(results);
     }
 
@@ -49,7 +49,7 @@ public static class Api
         string? endsWith = null)
     {
         var results = await sqlServerService.SelectTopReputableByLocation(
-             top: top ?? Backend.Constants.DefaultNumResults,
+             top: top ?? Shared.Services.Constants.DefaultNumResults,
              startsWith: startsWith ?? "%",
              contains: contains ?? "%",
              endsWith: endsWith ?? "%");
